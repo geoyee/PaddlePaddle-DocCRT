@@ -1,7 +1,9 @@
 from PySide2.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QGridLayout, \
-    QFontDialog, QFileDialog, QColorDialog, QMenu
+    QFontDialog, QFileDialog, QColorDialog, QMenu, QLabel
 from PySide2.QtCore import QPoint, Signal, QEvent
 from PySide2.QtGui import QFont, QColor, QIcon, QFontDatabase, QPalette
+from PySide2.QtMultimedia import QCamera, QCameraInfo
+from PySide2.QtMultimediaWidgets import QCameraViewfinder
 from .box_widget import *
 from .document import Document
 import os
@@ -751,12 +753,37 @@ class DocWidget(QWidget):
         self.documentScrollArea.setDocument(self.document)
         self.document.addTextBlockWithTextItem()  # 初始化
 
+        # about camera
+        available_cameras = QCameraInfo.availableCameras()
+        if len(available_cameras) == 0:  # unable to detect camera 
+            self.view_finder = QLabel("未检出到摄像头")
+        else:
+            self.view_finder = QCameraViewfinder()
+            self.camera = QCamera(available_cameras[0], self)
+            self.camera.setViewfinder(self.view_finder)
+            self.camera.start()
+
+        # some new buttons
+        self.btn_text = ToolButton(QIcon("images/friends.png"), "", toolTip="识别文字")
+        self.btn_speak = ToolButton(QIcon("images/friends.png"), "", toolTip="语音朗读")
+        self.btn_analysis = ToolButton(QIcon("images/friends.png"), "", toolTip="句法分析")
+        self.btn_cont_speak = ToolButton(QIcon("images/friends.png"), "", toolTip="连续朗读")
+
         layout = QVBoxLayout()
         layout.addWidget(self.toolWidget)
         documentLayout = QHBoxLayout()
+        # add camera display
+        documentLayout.addWidget(self.view_finder)
         documentLayout.addStretch()
         documentLayout.addWidget(self.documentScrollArea)
-        documentLayout.addStretch()
+        # add some new buttons
+        button_layout = QVBoxLayout()
+        button_layout.addWidget(self.btn_text)
+        button_layout.addWidget(self.btn_speak)
+        button_layout.addWidget(self.btn_analysis)
+        button_layout.addStretch()
+        button_layout.addWidget(self.btn_cont_speak)
+        documentLayout.addLayout(button_layout)
         layout.addLayout(documentLayout)
         self.setLayout(layout)
 
