@@ -1,5 +1,5 @@
 from PySide2.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QGridLayout, \
-    QFontDialog, QFileDialog, QColorDialog, QMenu, QLabel
+     QFontDialog, QFileDialog, QColorDialog, QMenu, QLabel
 from PySide2.QtCore import QPoint, Signal, QEvent
 from PySide2.QtGui import QFont, QColor, QIcon, QFontDatabase, QPalette
 from PySide2.QtMultimedia import QCamera, QCameraInfo
@@ -328,9 +328,8 @@ class ToolWidget(QWidget):
         GlobalVars.currentFontSubScriptPanel = ToolButton(icon=QIcon("images/subscript.png"),
                                                           toolTip="下标")  # 下标待完善
         GlobalVars.currentFontSubScriptPanel.setEnabled(False)
-        GlobalVars.screenShotCapture = ToolButton(icon=QIcon('images/capture.png'),
-                                                  toolTip='截屏识别',
-                                                  clicked=self.screenShotCapture)
+        GlobalVars.screenShotCapture = ToolButton(
+            "截", toolTip='截屏识别', clicked=self.screenShotCapture)
 
         font1Layout = QHBoxLayout()
         font1Layout.addWidget(GlobalVars.currentFontFamilyPanel)
