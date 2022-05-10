@@ -1,6 +1,6 @@
 from .block import Block
 from time import time
-from PySide2.QtGui import QFontMetrics, QPalette, QPainter, QColor, QFont
+from PySide2.QtGui import QFontMetrics, QPalette, QPainter, QFont
 from PySide2.QtCore import QRect, Qt, QPoint, QTimer
 from PySide2.QtWidgets import QApplication, QLabel
 from .test import test

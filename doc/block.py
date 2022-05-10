@@ -1,6 +1,6 @@
 from PySide2.QtWidgets import QWidget
-from PySide2.QtCore import Qt, QEvent, QRect
-from PySide2.QtGui import QKeySequence, QPainter, QPalette
+from PySide2.QtCore import Qt, QEvent
+from PySide2.QtGui import QKeySequence, QPainter
 from . import globalvars
 
 GlobalVars = globalvars.GlobalVars

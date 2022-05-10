@@ -1,6 +1,5 @@
 from PySide2.QtWidgets import QWidget
-from PySide2.QtCore import Qt, QPoint
-from PySide2.QtGui import QFont, QColor
+from PySide2.QtCore import Qt
 from .page import Page
 from .test import test  # 测试
 from . import globalvars

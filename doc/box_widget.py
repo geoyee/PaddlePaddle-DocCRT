@@ -1,6 +1,6 @@
-from PySide2.QtWidgets import QWidget, QScrollArea, QPushButton, QLineEdit, QSizePolicy, QHBoxLayout
-from PySide2.QtGui import QPalette, QPainter, QBrush, QPainterPath, QFont, QIcon, QCursor
-from PySide2.QtCore import Qt, QPoint, QTimer
+from PySide2.QtWidgets import QWidget, QScrollArea, QPushButton, QLineEdit
+from PySide2.QtGui import QPainter, QIcon
+from PySide2.QtCore import Qt, QPoint
 from . import globalvars
 from .test import test
 

@@ -1,6 +1,6 @@
 from PySide2.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QGridLayout, \
-     QFontDialog, QFileDialog, QColorDialog, QMenu, QLabel
-from PySide2.QtCore import QPoint, Signal, QEvent
+     QFontDialog, QFileDialog, QColorDialog, QMenu
+from PySide2.QtCore import QPoint, Signal
 from PySide2.QtGui import QFont, QColor, QIcon, QFontDatabase, QPalette
 from .box_widget import *
 from .document import Document
