@@ -1,5 +1,5 @@
 from PySide2.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QGridLayout, \
-     QFontDialog, QFileDialog, QColorDialog, QMenu
+     QFontDialog, QFileDialog, QColorDialog, QMenu, QSizePolicy
 from PySide2.QtCore import QPoint, Signal
 from PySide2.QtGui import QFont, QColor, QIcon, QFontDatabase, QPalette
 from .box_widget import *
@@ -14,6 +14,8 @@ from paddleocr import PaddleOCR
 import numpy as np
 import pyperclip
 from pycorrector.ernie.ernie_corrector import ErnieCorrector
+from .camera import Camera
+
 corrector = ErnieCorrector()
 
 GlobalVars = globalvars.GlobalVars
@@ -724,7 +726,6 @@ class ToolWidget(QWidget):
 
 
 class DocWidget(QWidget):
-
     def __init__(self, parent=None):
         super().__init__(parent)
         initialize()  # 初始化一些参数
@@ -742,6 +743,7 @@ class DocWidget(QWidget):
     def ui(self):
         self.setWindowIcon(QIcon("images/icon.png"))
         self.setWindowTitle("文本批改编辑器")
+        self.setGeometry(200, 200, 1500, 800)  # 默认尺寸
 
         self.toolWidget = ToolWidget(self)
         self.toolWidget.move(0, 0)
@@ -752,8 +754,7 @@ class DocWidget(QWidget):
         self.document.addTextBlockWithTextItem()  # 初始化
 
         # about camera
-        from .camera import Camera
-        self.cameras = Camera(self)
+        self.cameras = Camera(self, self.height() - self.toolWidget.height() - 30)
         # TODO: 是否增加按钮显示启用或关闭摄像头
         self.cameras.start()
 
@@ -780,8 +781,6 @@ class DocWidget(QWidget):
         documentLayout.addLayout(button_layout)
         layout.addLayout(documentLayout)
         self.setLayout(layout)
-
-        self.setGeometry(200, 200, 1500, 800)  # 默认尺寸
 
 
 def initialize():
