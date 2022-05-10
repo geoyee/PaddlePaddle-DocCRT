@@ -1,5 +1,5 @@
 from PySide2.QtWidgets import QWidget
-from PySide2.QtCore import Qt
+from PySide2.QtCore import Qt, QPoint
 from PySide2.QtGui import QFont, QColor
 from .page import Page
 from .test import test  # 测试
@@ -33,6 +33,7 @@ class Document(QWidget):
         # 键盘按键
         self.isShiftPressed = False  # shift键是否按下
         self.isAltPressed = False  # alt键是否按下
+        self.isCtrlPressed = False  # ctrl键是否按下
 
         self.setAsCurrentDocument()
         self.show()
@@ -172,7 +173,7 @@ class Document(QWidget):
         super().mousePressEvent(event)
         event.accept()
 
-        if self.SelBlocks:  # 之前选中了块# 取消之前的选择
+        if self.SelBlocks:  # 之前选中了块  # 取消之前的选择
             self.deSelEvent()
         self.SelArea[0], self.SelArea[1] = event.x(), event.y()  # 鼠标单击开始坐标
         self.update()

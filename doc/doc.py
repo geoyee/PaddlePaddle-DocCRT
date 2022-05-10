@@ -2,8 +2,6 @@ from PySide2.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, Q
      QFontDialog, QFileDialog, QColorDialog, QMenu, QLabel
 from PySide2.QtCore import QPoint, Signal, QEvent
 from PySide2.QtGui import QFont, QColor, QIcon, QFontDatabase, QPalette
-from PySide2.QtMultimedia import QCamera, QCameraInfo
-from PySide2.QtMultimediaWidgets import QCameraViewfinder
 from .box_widget import *
 from .document import Document
 import os
@@ -112,10 +110,11 @@ class TextItemReload(TextItem, QPushButton):
 class DocumentScrollArea(ScrollArea):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setMaximumSize(GlobalVars.PageWidth + 30, 10000)
-        self.setMinimumSize(GlobalVars.PageWidth + 30, 10)
-        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
+        self.setMaximumSize(10000 + 30, 10000)
+        self.setMinimumSize(10 + 30, 10)
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setStyleSheet("background-color:rgba(255,255,255)")
+        # self.setWidgetResizable(True)
 
     def setDocument(self, document):
         self.document = document
@@ -753,27 +752,23 @@ class DocWidget(QWidget):
         self.document.addTextBlockWithTextItem()  # 初始化
 
         # about camera
-        available_cameras = QCameraInfo.availableCameras()
-        if len(available_cameras) == 0:  # unable to detect camera 
-            self.view_finder = QLabel("未检出到摄像头")
-        else:
-            self.view_finder = QCameraViewfinder()
-            self.camera = QCamera(available_cameras[0], self)
-            self.camera.setViewfinder(self.view_finder)
-            self.camera.start()
+        from .camera import Camera
+        self.cameras = Camera(self)
+        # TODO: 是否增加按钮显示启用或关闭摄像头
+        self.cameras.start()
 
         # some new buttons
-        self.btn_text = ToolButton(QIcon("images/friends.png"), "", toolTip="识别文字")
-        self.btn_speak = ToolButton(QIcon("images/friends.png"), "", toolTip="语音朗读")
-        self.btn_analysis = ToolButton(QIcon("images/friends.png"), "", toolTip="句法分析")
-        self.btn_cont_speak = ToolButton(QIcon("images/friends.png"), "", toolTip="连续朗读")
+        self.btn_text = ToolButton("识", toolTip="识别文字")
+        self.btn_speak = ToolButton("语", toolTip="语音朗读")
+        self.btn_analysis = ToolButton("句", toolTip="句法分析")
+        self.btn_cont_speak = ToolButton("连", toolTip="连续朗读")
 
         layout = QVBoxLayout()
         layout.addWidget(self.toolWidget)
         documentLayout = QHBoxLayout()
         # add camera display
-        documentLayout.addWidget(self.view_finder)
-        documentLayout.addStretch()
+        documentLayout.addWidget(self.cameras)
+        # add document
         documentLayout.addWidget(self.documentScrollArea)
         # add some new buttons
         button_layout = QVBoxLayout()

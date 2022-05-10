@@ -1,0 +1,6 @@
+tqdm
+paddleocr
+paddlepaddle-gpu
+pycorrector
+pyperclip
+PySide2

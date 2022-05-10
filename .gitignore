@@ -1,3 +1,13 @@
+# IDEA
 .idea/
+
+# cache
 __pycache__/
 *.pyc
+
+# install kenlm
+src/
+
+# for test
+files/
+test.py
