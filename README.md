@@ -64,16 +64,6 @@
 
 首先，用windows截图快捷命令Alt + A进行截图；待截图完成后，点击右上角"截"功能按钮，等待识别完成；完成后，使用Ctrl + V快捷键将内容粘贴到文本栏即可。
 
-# 错误解决
-
-1. 点击“批”无反应，加载模型失败。
-
-   原因为kenlm未安装或安装失败，Linux下可直接进行安装，Windows下可采用如下命令进行安装：
-
-   ```shell
-   !pip install -e git+https://github.com/kpu/kenlm.git#egg=kenlm
-   ```
-
 # 总结和展望
 
 本项目是一个简单的工具实例demo，具体功能欢迎fork项目进行了解。以后将增加的内容包括：
